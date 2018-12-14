@@ -100,7 +100,9 @@ Reduce过程：Key:requestUrl,value:ResultStats
 数据收集规则，数据是最终放在hdfs，是按照
 /data/log/yyyyMMdd/hh.log的形式。
 
+
 #### 3.1 数据解析与存储
+
 
 
 
