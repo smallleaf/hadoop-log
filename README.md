@@ -1,11 +1,11 @@
 ## hadoop日志请求分析系统
-需求：从大量的日志文件中，分析请求情况。
-这里设计的几个问题：
-1.日志如何收集？：这里是多台机器，并且需要定时去将这些日志存入hdfs，这里用到flume来做日志收集。
-2.考虑到不需要实时的统计情况，考虑采用hadoop来做日志分析。
-3.对于分析的结果，存入mysql，对于原日志信息，存入hbase。
-4.并且提供接口可以查询
-5.完全基于springboot。
+需求：从大量的日志文件中，分析请求情况。    
+这里设计的几个问题：  
+1.日志如何收集？：这里是多台机器，并且需要定时去将这些日志存入hdfs，这里用到flume来做日志收集。   
+2.考虑到不需要实时的统计情况，考虑采用hadoop来做日志分析。   
+3.对于分析的结果，存入mysql，对于原日志信息，存入hbase。  
+4.并且提供接口可以查询    
+5.完全基于springboot。   
 
 ### 1.日志分析
 日志来源于tomcat的请求日志，日志格式为
@@ -17,6 +17,8 @@
                  pattern="%{X-Real-IP}i %h %l %u %t %r %s %b -- %D" resolveHosts="false"
                  fileDateFormat="yyyy-MM-dd"/>
  %{X-Real-IP}i %h %l %u %t %r %s %b -- %D
+ 
+```
 ```
 .         %a - 远端IP地址
 ·        %A - 本地IP地址
@@ -39,6 +41,7 @@
 ·        %T - 处理请求的时间，以秒为单位
 
 请求日志如下：
+```
 ```
 172.58.62.249 10.10.34.233 - - [12/Dec/2018:23:55:36 +0800] POST /api/v1/match/constellation HTTP/1.1 200 2393 -- 2
 ```
@@ -98,7 +101,7 @@ Reduce过程：Key:requestUrl,value:ResultStats
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2018121420120333.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTAzOTkwMDk=,size_16,color_FFFFFF,t_70)
 
 数据收集规则，数据是最终放在hdfs，是按照
-/data/log/yyyyMMdd/hh.log的形式。
+/data/logs/%Y/%m/%D/%H的形式。
 
 
 #### 3.1 数据解析与存储
