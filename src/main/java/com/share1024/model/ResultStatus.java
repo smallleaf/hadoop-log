@@ -114,17 +114,37 @@ public class ResultStatus implements WritableComparable<ResultStatus>, Writable,
 
     @Override
     public void write(DataOutput dataOutput) throws IOException {
-
+        dataOutput.writeUTF(this.requestTime);
+        dataOutput.writeUTF(this.url);
+        dataOutput.writeInt(this.sum);
+        dataOutput.writeInt(this.sum_200);
+        dataOutput.writeInt(this.sum_400);
+        dataOutput.writeInt(this.sum_404);
+        dataOutput.writeInt(this.sum_500);
+        dataOutput.writeInt(this.sum_502);
     }
 
     @Override
     public void readFields(DataInput dataInput) throws IOException {
-
+        this.requestTime = dataInput.readUTF();
+        this.url = dataInput.readUTF();
+        this.sum = dataInput.readInt();
+        this.sum_200 = dataInput.readInt();
+        this.sum_400 = dataInput.readInt();
+        this.sum_404 = dataInput.readInt();
+        this.sum_500 = dataInput.readInt();
+        this.sum_502 = dataInput.readInt();
     }
 
     @Override
     public void write(PreparedStatement statement) throws SQLException {
-
+        statement.setString(1,this.requestTime);
+        statement.setInt(2,this.sum);
+        statement.setInt(3,this.sum_500);
+        statement.setInt(4,this.sum_400);
+        statement.setInt(5,this.sum_404);
+        statement.setInt(6,this.sum_502);
+        statement.setString(7,this.url);
     }
 
     @Override
@@ -133,5 +153,9 @@ public class ResultStatus implements WritableComparable<ResultStatus>, Writable,
         this.requestTime = resultSet.getString(1);
         this.sum = resultSet.getInt(2);
         this.sum_500 = resultSet.getInt(3);
+        this.sum_400 = resultSet.getInt(4);
+        this.sum_404 = resultSet.getInt(5);
+        this.sum_502 = resultSet.getInt(6);
+        this.url = resultSet.getString(7);
     }
 }

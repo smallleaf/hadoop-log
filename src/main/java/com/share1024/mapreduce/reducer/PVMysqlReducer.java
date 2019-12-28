@@ -2,6 +2,7 @@ package com.share1024.mapreduce.reducer;
 
 import com.share1024.model.LogBean;
 import com.share1024.model.ResultStatus;
+import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import javax.xml.soap.Text;
@@ -13,7 +14,7 @@ import java.util.Iterator;
  * @Description :
  * @Date : 2018-12-17
  */
-public class PVReducer extends Reducer<Text, LogBean, ResultStatus, ResultStatus> {
+public class PVMysqlReducer extends Reducer<Text, LogBean, ResultStatus, NullWritable> {
 
     @Override
     protected void reduce(Text key, Iterable<LogBean> values, Context context) throws IOException, InterruptedException {
@@ -60,7 +61,11 @@ public class PVReducer extends Reducer<Text, LogBean, ResultStatus, ResultStatus
         String[] urlRequest = key.toString().split("_");
         rs.setUrl(urlRequest[0]);
         rs.setRequestTime(urlRequest[1]);
-        context.write(rs,rs);
+
+        /**
+         * 输出最终是在mysql ，
+         */
+        context.write(rs,null);
 
     }
 

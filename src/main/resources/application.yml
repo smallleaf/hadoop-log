@@ -1,19 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.1.111:3306/hadoop?useUnicode=true&amp;characterEncoding=utf8
+    name: jbjava
+    password: jb98
 
 
+hbase:
+  zkQuorum: pbasadvw03.rmz.gomo.com,pbasadvw01.rmz.gomo.com,pbasadvw02.rmz.gomo.com
+  zkPort: 2181
+  znodeParent: /hbase
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+hadoop:
+  hdfs-url-pre: hdfs://pbasadvw01.rmz.gomo.com:9000/data/logs/2019/01/13/17/acesss.1547373030684.log
+  system-uri: hdfs://pbasadvw01.rmz.gomo.com:9000

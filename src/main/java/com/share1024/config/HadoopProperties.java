@@ -21,7 +21,7 @@ public class HadoopProperties {
      */
     private boolean hasSuffix = false;
 
-    private String hdfsSuffixRex = "%Y/%m/%D/%H";
+    private String hdfsSuffixRex = "%Y/%m/%d/%H";
 
 
     public boolean isHasSuffix() {
